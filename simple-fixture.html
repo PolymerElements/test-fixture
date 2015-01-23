@@ -1,0 +1,47 @@
+<script>
+Polymer({
+  is: 'simple-fixture',
+
+  ready: function () {
+    this.fixtureTemplates = this.lightDom.querySelectorAll('template');
+  },
+
+  create: function () {
+    this.lightDom.batch(function () {
+      this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
+        this.createFrom(fixtureTemplate);
+        this.lightDom.removeChild(fixtureTemplate);
+      }, this);
+    });
+  },
+
+  createFrom: function (fixtureTemplate) {
+    if (!(fixtureTemplate &&
+          fixtureTemplate instanceof HTMLTemplateElement)) {
+      return;
+    }
+
+    this.lightDom.appendChild(
+      document.importNode(fixtureTemplate.content, true)
+    );
+  },
+
+  restore: function () {
+    this.lightDom.batch(function () {
+      this.forElements(this.lightDom.children(), function (fixturedChild) {
+        this.lightDom.removeChild(fixturedChild);
+      }, this);
+
+      this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
+        this.lightDom.appendChild(fixtureTemplate);
+      }, this);
+    });
+  },
+
+  forElements: function (elements, iterator, context) {
+    for (var i = 0; i < elements.length; ++i) {
+      iterator.call(context, elements[i], i, elements);
+    }
+  }
+});
+</script>

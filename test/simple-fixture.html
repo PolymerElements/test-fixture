@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+  <title>simple-fixture</title>
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../simple-fixture.html">
+</head>
+<body>
+  <simple-fixture id="TrivialFixture">
+    <template>
+      <div id="Foo"></div>
+    </template>
+  </simple-fixture>
+  <simple-fixture id="ComplexDomFixture">
+    <template>
+      <div id="Bar">
+        <div id="BarChild"></div>
+      </div>
+      <div id="BarSibling"></div>
+    </template>
+  </simple-fixture>
+  <simple-fixture id="MultiTemplateFixture">
+    <template>
+      <div id="Baz"></div>
+    </template>
+    <template>
+      <div id="Qux"></div>
+    </template>
+  </simple-fixture>
+  <script>
+describe('<simple-fixture>', function () {
+  var trivialFixture;
+  var complexDomFixture;
+  var multiTemplateFixture;
+
+  beforeEach(function () {
+    trivialFixture = document.getElementById('TrivialFixture');
+    complexDomFixture = document.getElementById('ComplexDomFixture');
+    multiTemplateFixture = document.getElementById('MultiTemplateFixture');
+  });
+
+  afterEach(function () {
+    trivialFixture.restore();
+    complexDomFixture.restore();
+    multiTemplateFixture.restore();
+  });
+
+  describe('when create is called', function () {
+    beforeEach(function () {
+      trivialFixture.create();
+    });
+
+    it('clones all template fragments within itself', function () {
+      expect(document.getElementById('Foo')).to.be.ok;
+    });
+
+    it('detaches all fixture templates from itself', function () {
+      expect(trivialFixture.querySelectorAll('template').length).to.be.equal(0);
+    });
+
+    describe('and then restore is called', function () {
+      beforeEach(function () {
+        trivialFixture.restore();
+      });
+
+      it('re-attaches all fixture templates', function () {
+        expect(trivialFixture.querySelectorAll('template').length).to.be.equal(1);
+      });
+
+      it('removes all cloned elements from itself', function () {
+        expect(document.getElementById('Foo')).to.not.be.ok;
+      });
+    });
+
+    describe('for a complex dom', function () {
+      beforeEach(function () {
+        complexDomFixture.create();
+      });
+
+      it('fixtures all the dom elements in the template', function () {
+        expect(document.getElementById('Bar')).to.be.ok;
+        expect(document.getElementById('BarSibling')).to.be.ok;
+        expect(document.getElementById('BarChild')).to.be.ok;
+      });
+    });
+
+    describe('when there are multiple templates', function () {
+      beforeEach(function () {
+        multiTemplateFixture.create();
+      });
+
+      it('fixtures elements from all of the templates', function () {
+        expect(document.getElementById('Baz')).to.be.ok;
+        expect(document.getElementById('Qux')).to.be.ok;
+      });
+    });
+  });
+});
+  </script>
+
+</body>
+</html>

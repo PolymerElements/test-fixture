@@ -1,0 +1,23 @@
+{
+  "name": "simple-fixture",
+  "version": "0.0.1",
+  "authors": [
+    "Chris Joel <cdata@google.com>"
+  ],
+  "description": "A simple element to fixture DOM for tests.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "polymer/polymer#0.8-preview",
+    "webcomponentsjs": "~0.5.3"
+  },
+  "devDependencies": {
+    "web-component-tester": "~2.0.5"
+  }
+}
