@@ -36,6 +36,10 @@ Fixtured elements can be cleaned up by calling `restore` on the `<simple-fixture
   });
 ```
 
+`<simple-fixture>` will create fixtures from all of its immediate `<template>`
+children. The DOM structure of fixture templates can be as simple or as complex
+as the situation calls for.
+
 ## The problem being addressed
 
 Consider the following `web-component-tester` test suite:
