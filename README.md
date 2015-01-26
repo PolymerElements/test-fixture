@@ -40,6 +40,26 @@ Fixtured elements can be cleaned up by calling `restore` on the `<simple-fixture
 children. The DOM structure of fixture templates can be as simple or as complex
 as the situation calls for.
 
+## Even simpler usage in Mocha
+
+In Mocha, usage can be simplified even further. Include `simple-fixture-mocha.js`
+after Mocha in the `<head>` of your document and then fixture elements like so:
+
+```html
+<script>
+describe('<some-element>', function () {
+  var someElement;
+
+  beforeEach(function () {
+    someElement = fixture('SomeElementFixture');
+  });
+});
+</script>
+```
+
+Fixtured elements will be automatically restored in the `afterEach` phase of the
+current Mocha `Suite`.
+
 ## The problem being addressed
 
 Consider the following `web-component-tester` test suite:

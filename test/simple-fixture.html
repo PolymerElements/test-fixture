@@ -5,6 +5,7 @@
 
   <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
   <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../simple-fixture-mocha.js"></script>
 
   <link rel="import" href="../bower_components/polymer/polymer.html">
   <link rel="import" href="../simple-fixture.html">
@@ -29,6 +30,7 @@
     </template>
     <template>
       <div id="Qux"></div>
+      <div id="QuxSibling"></div>
     </template>
   </simple-fixture>
   <script>
@@ -50,8 +52,10 @@ describe('<simple-fixture>', function () {
   });
 
   describe('when create is called', function () {
+    var el;
+
     beforeEach(function () {
-      trivialFixture.create();
+      el = trivialFixture.create();
     });
 
     it('clones all template fragments within itself', function () {
@@ -76,9 +80,17 @@ describe('<simple-fixture>', function () {
       });
     });
 
+    describe('for a dom with a single root element', function () {
+      it('returns a reference to the root element', function () {
+        expect(el).to.be.instanceOf(HTMLElement);
+      });
+    });
+
     describe('for a complex dom', function () {
+      var els;
+
       beforeEach(function () {
-        complexDomFixture.create();
+        els = complexDomFixture.create();
       });
 
       it('fixtures all the dom elements in the template', function () {
@@ -86,17 +98,45 @@ describe('<simple-fixture>', function () {
         expect(document.getElementById('BarSibling')).to.be.ok;
         expect(document.getElementById('BarChild')).to.be.ok;
       });
+
+      it('returns an array of root elements', function () {
+        expect(els).to.be.instanceOf(Array);
+        expect(els[0]).to.be.instanceOf(HTMLElement);
+        expect(els[1]).to.be.instanceOf(HTMLElement);
+      });
     });
 
     describe('when there are multiple templates', function () {
+      var groups;
+
       beforeEach(function () {
-        multiTemplateFixture.create();
+        groups = multiTemplateFixture.create();
       });
 
       it('fixtures elements from all of the templates', function () {
         expect(document.getElementById('Baz')).to.be.ok;
         expect(document.getElementById('Qux')).to.be.ok;
       });
+
+      it('returns an array with elements grouped by template', function () {
+        expect(groups).to.be.instanceOf(Array);
+        expect(groups[0]).to.be.instanceOf(HTMLElement);
+        expect(groups[1]).to.be.instanceOf(Array);
+        expect(groups[1][0]).to.be.instanceOf(HTMLElement);
+        expect(groups[1][1]).to.be.instanceOf(HTMLElement);
+      });
+    });
+  });
+
+  describe('when the fixture global is called', function () {
+    var el;
+
+    beforeEach(function () {
+      el = fixture('TrivialFixture');
+    });
+
+    it('generates a DOM fragment from the associated fixture', function () {
+      expect(el).to.be.equal(document.getElementById('Foo'));
     });
   });
 });
