@@ -7,41 +7,76 @@ Polymer({
   },
 
   create: function () {
+    var generatedDoms = [];
+
+    this.restore();
+
     this.lightDom.batch(function () {
+      this.removeElements(this.fixtureTemplates);
+
       this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
-        this.createFrom(fixtureTemplate);
-        this.lightDom.removeChild(fixtureTemplate);
+        generatedDoms.push(
+          this.createFrom(fixtureTemplate)
+        );
       }, this);
     });
+
+    if (generatedDoms.length < 2) {
+      return generatedDoms[0];
+    }
+
+    return generatedDoms;
   },
 
   createFrom: function (fixtureTemplate) {
+    var fixturedFragment;
+    var fixturedElements;
+    var fixturedElement;
+
     if (!(fixtureTemplate &&
           fixtureTemplate instanceof HTMLTemplateElement)) {
       return;
     }
 
-    this.lightDom.appendChild(
-      document.importNode(fixtureTemplate.content, true)
-    );
+    fixturedFragment = document.importNode(fixtureTemplate.content, true)
+    fixturedElements = [];
+    fixturedElement = fixturedFragment.firstElementChild;
+
+    while (fixturedElement) {
+      fixturedElements.push(fixturedElement);
+      fixturedElement = fixturedElement.nextElementSibling;
+    }
+
+    this.lightDom.appendChild(fixturedFragment);
+
+    if (fixturedElements.length < 2) {
+      return fixturedElements[0];
+    }
+
+    return fixturedElements;
   },
 
   restore: function () {
     this.lightDom.batch(function () {
-      this.forElements(this.lightDom.children(), function (fixturedChild) {
-        this.lightDom.removeChild(fixturedChild);
-      }, this);
+      this.removeElements(this.lightDom.children());
 
       this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
         this.lightDom.appendChild(fixtureTemplate);
       }, this);
     });
+
+    this.generatedDomStack = [];
+  },
+
+  removeElements: function (elements) {
+    this.forElements(elements, function (element) {
+      this.lightDom.removeChild(element);
+    }, this);
   },
 
   forElements: function (elements, iterator, context) {
-    for (var i = 0; i < elements.length; ++i) {
-      iterator.call(context, elements[i], i, elements);
-    }
+    Array.prototype.slice.call(elements)
+      .forEach(iterator, context);
   }
 });
 </script>
