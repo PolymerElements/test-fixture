@@ -1,17 +1,17 @@
-# Simple Fixture
+# Test Fixture
 
-The `<simple-fixture>` element can simplify the exercise of consistently
+The `<test-fixture>` element can simplify the exercise of consistently
 reseting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
 
 ```html
-<simple-fixture id="SomeElementFixture">
+<test-fixture id="SomeElementFixture">
   <template>
     <some-element id="SomeElementForTesting"></some-element>
   </template>
-</simple-fixture>
+</test-fixture>
 ```
 
-Now, the `<simple-fixture>` element can be used to generate a copy if its
+Now, the `<test-fixture>` element can be used to generate a copy if its
 template:
 
 ```html
@@ -27,7 +27,7 @@ describe('<some-element>', function () {
 </script>
 ```
 
-Fixtured elements can be cleaned up by calling `restore` on the `<simple-fixture>`:
+Fixtured elements can be cleaned up by calling `restore` on the `<test-fixture>`:
 
 ```javascript
   afterEach(function () {
@@ -36,13 +36,13 @@ Fixtured elements can be cleaned up by calling `restore` on the `<simple-fixture
   });
 ```
 
-`<simple-fixture>` will create fixtures from all of its immediate `<template>`
+`<test-fixture>` will create fixtures from all of its immediate `<template>`
 children. The DOM structure of fixture templates can be as simple or as complex
 as the situation calls for.
 
 ## Even simpler usage in Mocha
 
-In Mocha, usage can be simplified even further. Include `simple-fixture-mocha.js`
+In Mocha, usage can be simplified even further. Include `test-fixture-mocha.js`
 after Mocha in the `<head>` of your document and then fixture elements like so:
 
 ```html
@@ -100,7 +100,7 @@ In this contrived example, the suite will pass or fail depending on which order
 the tests are run in. It is non-deterministic because `someElement` has
 internal state that is not properly reset at the end of each test.
 
-It would be trivial in the above example to simple reset `someElement.foo` to
+It would be trivial in the above example to simply reset `someElement.foo` to
 the expected default value of `undefined` in an `afterEach` hook. However, for
 non-contrived test suites that target complex elements, this can result in a
 large quantity of ever-growing set-up and tear-down boilerplate.

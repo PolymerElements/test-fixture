@@ -1,30 +1,30 @@
 <!doctype html>
 <html>
 <head>
-  <title>simple-fixture</title>
+  <title>test-fixture</title>
 
-  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
-  <script src="../bower_components/web-component-tester/browser.js"></script>
-  <script src="../simple-fixture-mocha.js"></script>
+  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../test-fixture-mocha.js"></script>
 
-  <link rel="import" href="../bower_components/polymer/polymer.html">
-  <link rel="import" href="../simple-fixture.html">
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../test-fixture.html">
 </head>
 <body>
-  <simple-fixture id="TrivialFixture">
+  <test-fixture id="TrivialFixture">
     <template>
       <div id="Foo"></div>
     </template>
-  </simple-fixture>
-  <simple-fixture id="ComplexDomFixture">
+  </test-fixture>
+  <test-fixture id="ComplexDomFixture">
     <template>
       <div id="Bar">
         <div id="BarChild"></div>
       </div>
       <div id="BarSibling"></div>
     </template>
-  </simple-fixture>
-  <simple-fixture id="MultiTemplateFixture">
+  </test-fixture>
+  <test-fixture id="MultiTemplateFixture">
     <template>
       <div id="Baz"></div>
     </template>
@@ -32,9 +32,9 @@
       <div id="Qux"></div>
       <div id="QuxSibling"></div>
     </template>
-  </simple-fixture>
+  </test-fixture>
   <script>
-describe('<simple-fixture>', function () {
+describe('<test-fixture>', function () {
   var trivialFixture;
   var complexDomFixture;
   var multiTemplateFixture;
