@@ -1,11 +1,7 @@
 {
-  "name": "simple-fixture",
+  "name": "test-fixture",
   "version": "0.0.1",
-  "authors": [
-    "Chris Joel <cdata@google.com>"
-  ],
   "description": "A simple element to fixture DOM for tests.",
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
