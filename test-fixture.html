@@ -6,21 +6,31 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="../polymer/polymer.html">
 <script>
-Polymer({
-  is: 'test-fixture',
+(function () {
+  var TestFixturePrototype = Object.create(HTMLElement.prototype);
+  var TestFixtureExtension = {
+    _fixtureTemplates: null,
 
-  ready: function () {
-    this.fixtureTemplates = this.lightDom.querySelectorAll('template');
-  },
+    _elementsFixtured: false,
 
-  create: function () {
-    var generatedDoms = [];
+    get elementsFixtured () {
+      return this._elementsFixtured;
+    },
 
-    this.restore();
+    get fixtureTemplates () {
+      if (!this._fixtureTemplates) {
+        this._fixtureTemplates = this.querySelectorAll('template');
+      }
 
-    this.lightDom.batch(function () {
+      return this._fixtureTemplates;
+    },
+
+    create: function () {
+      var generatedDoms = [];
+
+      this.restore();
+
       this.removeElements(this.fixtureTemplates);
 
       this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
@@ -28,64 +38,82 @@ Polymer({
           this.createFrom(fixtureTemplate)
         );
       }, this);
-    });
 
-    if (generatedDoms.length < 2) {
-      return generatedDoms[0];
-    }
+      if (generatedDoms.length < 2) {
+        return generatedDoms[0];
+      }
 
-    return generatedDoms;
-  },
+      return generatedDoms;
+    },
 
-  createFrom: function (fixtureTemplate) {
-    var fixturedFragment;
-    var fixturedElements;
-    var fixturedElement;
+    createFrom: function (fixtureTemplate) {
+      var fixturedFragment;
+      var fixturedElements;
+      var fixturedElement;
 
-    if (!(fixtureTemplate &&
-          fixtureTemplate instanceof HTMLTemplateElement)) {
-      return;
-    }
+      if (!(fixtureTemplate &&
+            fixtureTemplate instanceof HTMLTemplateElement)) {
+        return;
+      }
 
-    fixturedFragment = document.importNode(fixtureTemplate.content, true)
-    fixturedElements = [];
-    fixturedElement = fixturedFragment.firstElementChild;
+      fixturedFragment = document.importNode(fixtureTemplate.content, true)
+        fixturedElements = [];
+      fixturedElement = fixturedFragment.firstElementChild;
 
-    while (fixturedElement) {
-      fixturedElements.push(fixturedElement);
-      fixturedElement = fixturedElement.nextElementSibling;
-    }
+      while (fixturedElement) {
+        fixturedElements.push(fixturedElement);
+        fixturedElement = fixturedElement.nextElementSibling;
+      }
 
-    this.lightDom.appendChild(fixturedFragment);
+      this.appendChild(fixturedFragment);
+      this._elementsFixtured = true;
 
-    if (fixturedElements.length < 2) {
-      return fixturedElements[0];
-    }
+      if (fixturedElements.length < 2) {
+        return fixturedElements[0];
+      }
 
-    return fixturedElements;
-  },
+      return fixturedElements;
+    },
 
-  restore: function () {
-    this.lightDom.batch(function () {
-      this.removeElements(this.lightDom.children());
+    restore: function () {
+      if (!this._elementsFixtured) {
+        return;
+      }
+
+      this.removeElements(this.children);
 
       this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
-        this.lightDom.appendChild(fixtureTemplate);
+        this.appendChild(fixtureTemplate);
       }, this);
+
+      this.generatedDomStack = [];
+
+      this._elementsFixtured = false;
+    },
+
+    removeElements: function (elements) {
+      this.forElements(elements, function (element) {
+        this.removeChild(element);
+      }, this);
+    },
+
+    forElements: function (elements, iterator, context) {
+      Array.prototype.slice.call(elements)
+        .forEach(iterator, context);
+    }
+  };
+
+  Object.getOwnPropertyNames(TestFixtureExtension)
+    .forEach(function (property) {
+      Object.defineProperty(
+        TestFixturePrototype,
+        property,
+        Object.getOwnPropertyDescriptor(TestFixtureExtension, property)
+      );
     });
 
-    this.generatedDomStack = [];
-  },
-
-  removeElements: function (elements) {
-    this.forElements(elements, function (element) {
-      this.lightDom.removeChild(element);
-    }, this);
-  },
-
-  forElements: function (elements, iterator, context) {
-    Array.prototype.slice.call(elements)
-      .forEach(iterator, context);
-  }
-});
+  document.registerElement('test-fixture', {
+    prototype: TestFixturePrototype
+  });
+})();
 </script>
