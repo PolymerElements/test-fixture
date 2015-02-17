@@ -2,13 +2,6 @@
   "name": "test-fixture",
   "version": "0.0.1",
   "description": "A simple element to fixture DOM for tests.",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
     "webcomponentsjs": "~0.5.3"
   },
