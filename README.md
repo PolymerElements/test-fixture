@@ -60,6 +60,29 @@ describe('<some-element>', function () {
 Fixtured elements will be automatically restored in the `afterEach` phase of the
 current Mocha `Suite`.
 
+## Data-bound templates
+
+Data-binding systems are also supported, as long as your (custom) template
+elements define a `stamp(model)` method that returns a document fragment. This
+allows you to stamp out templates w/ custom models for your fixtures.
+
+For example, using Polymer 0.8's `x-template`:
+
+```html
+<test-fixture id="bound">
+  <template is="x-template">
+    <span>{{greeting}}</span>
+  </template>
+</test-fixture>
+```
+
+You can pass an optional context argument to `create()` or `fixture()` to pass
+the model:
+
+```js
+var bound = fixture('bound', {greeting: 'ohai thurr'});
+```
+
 ## The problem being addressed
 
 Consider the following `web-component-tester` test suite:
@@ -104,5 +127,3 @@ It would be trivial in the above example to simply reset `someElement.foo` to
 the expected default value of `undefined` in an `afterEach` hook. However, for
 non-contrived test suites that target complex elements, this can result in a
 large quantity of ever-growing set-up and tear-down boilerplate.
-
-

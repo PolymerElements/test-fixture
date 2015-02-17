@@ -20,7 +20,7 @@
           return;
         }
 
-        context.fixture = function (fixtureId) {
+        context.fixture = function (fixtureId, model) {
           (context.afterEach || context.teardown)(function () {
             document
               .getElementById(fixtureId)
@@ -29,7 +29,7 @@
 
           return document
             .getElementById(fixtureId)
-            .create();
+            .create(model);
         };
       });
     };
