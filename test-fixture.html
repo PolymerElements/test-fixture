@@ -62,13 +62,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.error('Error stamping', fixtureTemplate, error);
         throw error;
       }
-      fixturedElements = [];
-      fixturedElement = fixturedFragment.firstElementChild;
 
-      while (fixturedElement) {
-        fixturedElements.push(fixturedElement);
-        fixturedElement = fixturedElement.nextElementSibling;
-      }
+      fixturedElements = this.collectElementChildren(fixturedFragment);
 
       this.appendChild(fixturedFragment);
       this._elementsFixtured = true;
@@ -94,6 +89,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.generatedDomStack = [];
 
       this._elementsFixtured = false;
+    },
+
+    collectElementChildren: function (parent) {
+      // Note: Safari 7.1 does not support `firstElementChild` or
+      // `nextElementSibling`, so we do things the old-fashioned way:
+      var elements = [];
+      var child = parent.firstChild;
+
+      while (child) {
+        if (child.nodeType !== Node.TEXT_NODE) {
+          elements.push(child);
+        }
+
+        child = child.nextSibling;
+      }
+
+      return elements;
     },
 
     removeElements: function (elements) {
