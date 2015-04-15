@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A simple element to fixture DOM for tests.",
   "dependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#~0.6.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.6.0"
   },
   "devDependencies": {
     "web-component-tester": "~2.2.6",
