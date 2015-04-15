@@ -39,6 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         );
       }, this);
 
+      if (window.CustomElements && window.CustomElements.takeRecords) {
+        window.CustomElements.takeRecords();
+      }
+
       if (generatedDoms.length < 2) {
         return generatedDoms[0];
       }
@@ -89,6 +93,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.generatedDomStack = [];
 
       this._elementsFixtured = false;
+
+      if (window.CustomElements && window.CustomElements.takeRecords) {
+        window.CustomElements.takeRecords();
+      }
     },
 
     collectElementChildren: function (parent) {

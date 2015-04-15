@@ -91,10 +91,7 @@ describe('<test-fixture>', function () {
       attachedFixture.restore();
     });
 
-    // TODO(cdata): Make this test pass somehow. Currently it fails in
-    // not-Chrome due to an implementation detail of the Web Components
-    // polyfill.
-    xit('detaches the fixtured DOM when it is restored', function () {
+    it('detaches the fixtured DOM when it is restored', function () {
       var detached = false;
 
       element.onDetached = function () {
