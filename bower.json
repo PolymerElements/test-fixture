@@ -7,6 +7,6 @@
   },
   "devDependencies": {
     "web-component-tester": "~2.2.6",
-    "polymer": "polymer/polymer#0.8-preview"
+    "polymer": "polymer/polymer#v0.8.0-rc.6"
   }
 }
