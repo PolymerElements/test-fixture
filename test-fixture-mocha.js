@@ -11,17 +11,18 @@
 (function (Mocha) {
   function extendInterfaceWithFixture (interfaceName) {
     var originalInterface = Mocha.interfaces[interfaceName];
+    var teardownProperty = interfaceName === 'bdd' ? 'afterEach' : 'teardown';
 
     Mocha.interfaces[interfaceName] = function (suite) {
       originalInterface.apply(this, arguments);
 
       suite.on('pre-require', function (context, file, mocha) {
-        if (!(context.afterEach || context.teardown)) {
+        if (!(context[teardownProperty])) {
           return;
         }
 
         context.fixture = function (fixtureId, model) {
-          (context.afterEach || context.teardown)(function () {
+          context[teardownProperty](function () {
             document
               .getElementById(fixtureId)
               .restore();
