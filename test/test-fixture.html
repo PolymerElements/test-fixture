@@ -60,22 +60,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <x-custom></x-custom>
     </template>
   </test-fixture>
+  <test-fixture id="NestedRepeatFixture">
+    <template>
+      <template id="repeater" is="dom-repeat">
+        <div>{{item}}</div>
+      </template>
+    </template>
+  </test-fixture>
   <script>
 describe('<test-fixture>', function () {
   var trivialFixture;
   var complexDomFixture;
   var multiTemplateFixture;
+  var nestedRepeatFixture;
 
   beforeEach(function () {
     trivialFixture = document.getElementById('TrivialFixture');
     complexDomFixture = document.getElementById('ComplexDomFixture');
     multiTemplateFixture = document.getElementById('MultiTemplateFixture');
+    nestedRepeatFixture = document.getElementById('NestedRepeatFixture');
   });
 
   afterEach(function () {
     trivialFixture.restore();
     complexDomFixture.restore();
     multiTemplateFixture.restore();
+    nestedRepeatFixture.restore();
   });
 
   describe('an stamped-out fixture', function () {
@@ -190,6 +200,17 @@ describe('<test-fixture>', function () {
 
     it('generates a DOM fragment from the associated fixture', function () {
       expect(el).to.be.equal(document.getElementById('Foo'));
+    });
+  });
+
+  describe('nested repeat', function() {
+    var repeater;
+    beforeEach(function() {
+      repeater = nestedRepeatFixture.create();
+    });
+
+    it('repeat template has content', function() {
+      expect(repeater.content.querySelector('div')).to.exist;
     });
   });
 });
