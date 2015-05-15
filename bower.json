@@ -1,6 +1,6 @@
 {
   "name": "test-fixture",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A simple element to fixture DOM for tests",
   "keywords": [
     "web-components",
