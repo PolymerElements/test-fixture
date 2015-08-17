@@ -1,7 +1,7 @@
 # Test Fixture
 
 The `<test-fixture>` element can simplify the exercise of consistently
-reseting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
+resetting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
 
 ```html
 <test-fixture id="SomeElementFixture">
