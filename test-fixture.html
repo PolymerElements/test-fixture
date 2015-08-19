@@ -111,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var child = parent.firstChild;
 
       while (child) {
-        if (child.nodeType !== Node.TEXT_NODE) {
+        if (child.nodeType === Node.ELEMENT_NODE) {
           elements.push(child);
         }
 
