@@ -9,6 +9,8 @@ Edit this file, and the bot will squash your changes :)
 
 -->
 
+[![Build Status](https://travis-ci.org/PolymerElements/test-fixture.svg?branch=master)](https://travis-ci.org/PolymerElements/test-fixture)
+
 
 ##&lt;test-fixture&gt;
 
