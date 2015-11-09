@@ -1,6 +1,6 @@
 {
   "name": "test-fixture",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "http://polymer.github.io/LICENSE.txt",
   "description": "A simple element to fixture DOM for tests",
   "keywords": [
