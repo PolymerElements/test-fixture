@@ -8,9 +8,6 @@
     "polymer",
     "testing"
   ],
-  "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0"
-  },
   "devDependencies": {
     "web-component-tester": "*",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
