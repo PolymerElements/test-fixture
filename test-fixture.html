@@ -314,7 +314,11 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       prototype: TestFixturePrototype
     });
   } catch (e) {
-    console.warn('test-fixture has already been registered!');
+    if (window.WCT) {
+      console.warn('if you are using WCT, you do not need to manually import test-fixture.html');
+    } else {
+      console.warn('test-fixture has already been registered!');
+    }
   }
 })();
 </script>
