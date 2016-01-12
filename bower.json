@@ -9,7 +9,7 @@
     "testing"
   ],
   "devDependencies": {
-    "web-component-tester": "*",
+    "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "main": "test-fixture.html",
