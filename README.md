@@ -12,7 +12,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
 
-[![Build Status](https://travis-ci.org/PolymerElements/test-fixture.svg?branch=master)](https://travis-ci.org/PolymerElements/test-fixture)
+[![Build status](https://travis-ci.org/PolymerElements/test-fixture.svg?branch=master)](https://travis-ci.org/PolymerElements/test-fixture)
 
 
 ##&lt;test-fixture&gt;
