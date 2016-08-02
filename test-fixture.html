@@ -147,6 +147,7 @@ large quantity of ever-growing set-up and tear-down boilerplate.
   class TextFixture extends HTMLElement {
 
     constructor() {
+      super();
       this._fixtureTemplates = null;
       this._elementsFixtured = false;
     }
