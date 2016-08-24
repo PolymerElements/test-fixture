@@ -313,9 +313,20 @@ large quantity of ever-growing set-up and tear-down boilerplate.
     });
 
   try {
-    document.registerElement('test-fixture', {
-      prototype: TestFixturePrototype
-    });
+    if (window.customElements) {
+      function TestFixture() {
+        return ((window.Reflect && Reflect.construct) ?
+            Reflect.construct(HTMLElement, [], TestFixture)
+            : HTMLElement.call(this)) || this;
+      }
+      TestFixture.prototype = TestFixturePrototype;
+      TestFixture.prototype.constructor = TestFixture;
+      customElements.define('test-fixture', TestFixture);
+    } else {
+      document.registerElement('test-fixture', {
+        prototype: TestFixturePrototype
+      });
+    }
   } catch (e) {
     if (window.WCT) {
       console.warn('if you are using WCT, you do not need to manually import test-fixture.html');

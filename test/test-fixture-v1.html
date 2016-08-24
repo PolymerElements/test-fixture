@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <title>test-fixture</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../webcomponentsjs-v1/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
   <link rel="import" id="test-fixture-import" href="../test-fixture.html">
@@ -21,17 +21,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
   <script>
     (function() {
-      var proto = Object.create(HTMLElement.prototype);
+      function XCustom() {
+        if (window.Reflect) {
+          return Reflect.construct(HTMLElement, [], XCustom)
+        }
+        return HTMLElement.call(this) || this;
+      }
 
-      proto.onDetached = function() {};
-
-      proto.detachedCallback = function() {
+      XCustom.constructor = XCustom;
+      XCustom.prototype = Object.create(HTMLElement.prototype);
+      XCustom.prototype.onDetached = function() {};
+      XCustom.prototype.disconnectedCallback = function() {
         this.onDetached();
       };
 
-      document.registerElement('x-custom', {
-        prototype: proto
-      });
+      customElements.define('x-custom', XCustom);
     })();
   </script>
   <test-fixture id="TrivialFixture">
