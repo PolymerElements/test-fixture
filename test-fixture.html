@@ -240,6 +240,10 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       if (window.CustomElements && window.CustomElements.takeRecords) {
         window.CustomElements.takeRecords();
       }
+      // Force synchrony in ShadyDOM in case we are dealing with the polyfill.
+      if (window.ShadyDOM) {
+        window.ShadyDOM.flush();
+      }
     },
 
     collectElementChildren: function (parent) {
