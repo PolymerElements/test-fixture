@@ -2,7 +2,7 @@ language: node_js
 sudo: required
 dist: trusty
 before_script:
-- npm install -g bower web-component-tester
+- npm install -g bower web-component-tester polylint
 - bower install
 - polylint
 node_js: 6
