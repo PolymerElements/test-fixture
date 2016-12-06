@@ -4,6 +4,7 @@ dist: trusty
 before_script:
 - npm install -g bower web-component-tester
 - bower install
+- polylint
 node_js: 6
 addons:
   firefox: latest

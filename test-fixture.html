@@ -1,4 +1,5 @@
 <!--
+@license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -155,7 +156,9 @@ large quantity of ever-growing set-up and tear-down boilerplate.
 
     get fixtureTemplates () {
       if (!this._fixtureTemplates) {
-        this._fixtureTemplates = this.querySelectorAll('template');
+        // Copy fixtures to a true Array for Safari 7. This prevents their
+        // `content` property from being improperly garbage collected.
+        this._fixtureTemplates = Array.prototype.slice.apply(this.querySelectorAll('template'));
       }
 
       return this._fixtureTemplates;
