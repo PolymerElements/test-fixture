@@ -18,5 +18,5 @@ script:
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct -s 'default'; fi
 env:
   global:
-  - secure: lrbCdtCmSweKAJecA0iTxgsneyGECgPvmaudsAOKgDSXCg/ZDRv773bi3UOw+TdpC9HGMIJQKBpHeoye5nEspVUACwJzYpY81zxyaHJOH0MjofoXyKNPZfCvsmT7iELttE9r9LmOX9I/LXj7RughAbCFf6e4KIzkHlU24sKhzZM=
-  - secure: dZL82ebH0J17Exd0DU0YmEf2SuAxk98KR6uMdEvkFcuhlOemfWDQZAl5m/3bLXcqLGKUt+AKSfDyWWV7mX/G+Prza7qGEEJ/gBVfkbiBHcDRy6CIESrzb/4DWhRvX6n5PzDZpnnznxwbDf6wWriVagbz0TW4FeRgC72XgO/Z0AI=
+  - secure: ahgtHFWqjsRiKiGtnkthNYWM4tz+IcQoA8/kFk+aYXGbljeGHdtdDkaUUsedlTyMdfupCG+Wn0PssEWb6qGsUo3BP9LyfDHL/UEO5//llOWaNTSWr5ztDPgDvOawk6g1y8bmA/2R1Gifhhe1zcLySprzCNMVgq+NFRkKD3maiv8=
+  - secure: i2DBL7MR4aHWO8fRi5m0d8kfujeO8slLe0RIV98snzHnO7wm7q9Wtxmf6rFYKawib1KPe+c4+/sCyECVLHw4r0BBZrN602Qc/8O5WxEeCAjjjMrytGYEKFGhsJRAzzw/M8ZfM2FfHuGdhzkJSqLUqgmf2Nzsmehgw5aUEBRimBo=
