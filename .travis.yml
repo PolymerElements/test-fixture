@@ -19,4 +19,4 @@ script:
 env:
   global:
   - secure: lrbCdtCmSweKAJecA0iTxgsneyGECgPvmaudsAOKgDSXCg/ZDRv773bi3UOw+TdpC9HGMIJQKBpHeoye5nEspVUACwJzYpY81zxyaHJOH0MjofoXyKNPZfCvsmT7iELttE9r9LmOX9I/LXj7RughAbCFf6e4KIzkHlU24sKhzZM=
-  - secure: VqqvCOOsjsdYa3OBqMU2Xo3qyByMg0vFlnig0XvY/ymSVEcUa6r4HVd2fja7EQLdEAQA0v/OFt050fc0m1Zc1ni0pcmNwWm/kRUUlksmA0XcSPJprx0yWpVZuuQX/frKm7Lj2bDFPuDN9e0IXb2CFQP0ba6d4qW7u1rSjLfoIAQ=
+  - secure: dZL82ebH0J17Exd0DU0YmEf2SuAxk98KR6uMdEvkFcuhlOemfWDQZAl5m/3bLXcqLGKUt+AKSfDyWWV7mX/G+Prza7qGEEJ/gBVfkbiBHcDRy6CIESrzb/4DWhRvX6n5PzDZpnnznxwbDf6wWriVagbz0TW4FeRgC72XgO/Z0AI=
