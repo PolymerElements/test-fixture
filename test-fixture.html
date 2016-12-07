@@ -235,10 +235,17 @@ large quantity of ever-growing set-up and tear-down boilerplate.
 
     forcePolyfillAttachedStateSynchrony: function () {
       // Force synchrony in attachedCallback and detachedCallback where
-      // implemented, in the event that we are dealing with the async Web
-      // Components Polyfill.
-      if (window.CustomElements && window.CustomElements.takeRecords) {
+      // implemented, in the event that we are dealing with one of these async
+      // polyfills:
+      // 1. Web Components CustomElements polyfill (v1 or v0).
+      if (window.customElements && window.customElements.flush) {
+        window.customElements.flush();
+      } else if (window.CustomElements && window.CustomElements.takeRecords) {
         window.CustomElements.takeRecords();
+      }
+      // 2. ShadyDOM polyfill.
+      if (window.ShadyDOM) {
+        window.ShadyDOM.flush();
       }
     },
 

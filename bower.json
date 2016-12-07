@@ -11,7 +11,7 @@
   "devDependencies": {
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "webcomponentsjs-v1": "webcomponents/webcomponentsjs#v1-polymer-edits"
+    "webcomponentsjs-v1": "webcomponents/webcomponentsjs#v1"
   },
   "main": "test-fixture.html",
   "ignore": []
