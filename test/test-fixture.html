@@ -21,17 +21,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
   <script>
     (function() {
-      var proto = Object.create(HTMLElement.prototype);
+      class XCustom extends HTMLElement {
+        detachedCallback() {
+          this.onDetached();
+        }
+        disconnectedCallback() {
+          this.onDetached();
+        }
+        onDetached() {
+        }
+      }
 
-      proto.onDetached = function() {};
-
-      proto.detachedCallback = function() {
-        this.onDetached();
-      };
-
-      document.registerElement('x-custom', {
-        prototype: proto
-      });
+      if (window.customElements) {
+        window.customElements.define('x-custom', XCustom);
+      } else {
+        document.registerElement('x-custom', XCustom);
+      }
     })();
   </script>
   <test-fixture id="TrivialFixture">

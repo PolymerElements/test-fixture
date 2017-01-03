@@ -144,15 +144,17 @@ large quantity of ever-growing set-up and tear-down boilerplate.
 <script>
 
 (function () {
-  var TestFixturePrototype = Object.create(HTMLElement.prototype);
-  var TestFixtureExtension = {
-    _fixtureTemplates: null,
+  class TextFixture extends HTMLElement {
 
-    _elementsFixtured: false,
+    constructor() {
+      super();
+      this._fixtureTemplates = null;
+      this._elementsFixtured = false;
+    }
 
     get elementsFixtured () {
       return this._elementsFixtured;
-    },
+    }
 
     get fixtureTemplates () {
       if (!this._fixtureTemplates) {
@@ -162,9 +164,9 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       }
 
       return this._fixtureTemplates;
-    },
+    }
 
-    create: function (model) {
+    create(model) {
       var generatedDoms = [];
 
       this.restore();
@@ -184,9 +186,9 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       }
 
       return generatedDoms;
-    },
+    }
 
-    createFrom: function (fixtureTemplate, model) {
+    createFrom(fixtureTemplate, model) {
       var fixturedFragment;
       var fixturedElements;
       var fixturedElement;
@@ -213,9 +215,9 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       }
 
       return fixturedElements;
-    },
+    }
 
-    restore: function () {
+    restore() {
       if (!this._elementsFixtured) {
         return;
       }
@@ -231,18 +233,18 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       this._elementsFixtured = false;
 
       this.forcePolyfillAttachedStateSynchrony();
-    },
+    }
 
-    forcePolyfillAttachedStateSynchrony: function () {
+    forcePolyfillAttachedStateSynchrony () {
       // Force synchrony in attachedCallback and detachedCallback where
       // implemented, in the event that we are dealing with the async Web
       // Components Polyfill.
       if (window.CustomElements && window.CustomElements.takeRecords) {
         window.CustomElements.takeRecords();
       }
-    },
+    }
 
-    collectElementChildren: function (parent) {
+    collectElementChildren(parent) {
       // Note: Safari 7.1 does not support `firstElementChild` or
       // `nextElementSibling`, so we do things the old-fashioned way:
       var elements = [];
@@ -257,20 +259,20 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       }
 
       return elements;
-    },
+    }
 
-    removeElements: function (elements) {
+    removeElements(elements) {
       this.forElements(elements, function (element) {
         this.removeChild(element);
       }, this);
-    },
+    }
 
-    forElements: function (elements, iterator, context) {
+    forElements(elements, iterator, context) {
       Array.prototype.slice.call(elements)
         .forEach(iterator, context);
-    },
+    }
 
-    stamp: function (fixtureTemplate, model) {
+    stamp(fixtureTemplate, model) {
       var stamped;
       // Check if we are dealing with a "stampable" `<template>`. This is a
       // vaguely defined special case of a `<template>` that is a custom
@@ -301,21 +303,14 @@ large quantity of ever-growing set-up and tear-down boilerplate.
 
       return stamped;
     }
-  };
-
-  Object.getOwnPropertyNames(TestFixtureExtension)
-    .forEach(function (property) {
-      Object.defineProperty(
-        TestFixturePrototype,
-        property,
-        Object.getOwnPropertyDescriptor(TestFixtureExtension, property)
-      );
-    });
+  }
 
   try {
-    document.registerElement('test-fixture', {
-      prototype: TestFixturePrototype
-    });
+    if (window.customElements) {
+      customElements.define('test-fixture', TextFixture);
+    } else {
+      TestFixture = document.registerElement('test-fixture', TextFixture);
+    }
   } catch (e) {
     if (window.WCT) {
       console.warn('if you are using WCT, you do not need to manually import test-fixture.html');
@@ -323,5 +318,6 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       console.warn('test-fixture has already been registered!');
     }
   }
+
 })();
 </script>
