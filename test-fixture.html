@@ -294,8 +294,8 @@ large quantity of ever-growing set-up and tear-down boilerplate.
         // Immediately upgrade the subtree if we are dealing with async
         // Web Components polyfill.
         // https://github.com/Polymer/polymer/blob/0.8-preview/src/features/mini/template.html#L52
-        if (window.CustomElements && CustomElements.upgradeSubtree) {
-          CustomElements.upgradeSubtree(stamped);
+        if (window.CustomElements && window.CustomElements.upgradeSubtree) {
+          window.CustomElements.upgradeSubtree(stamped);
         }
       }
 
