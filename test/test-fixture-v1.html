@@ -12,7 +12,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <title>test-fixture</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    // Save original HTMLElement constructor since customElements v1 polyfill
+    // overrides it https://github.com/webcomponents/webcomponentsjs/issues/623
+    var _HTMLElement = window.HTMLElement;
+  </script>
+
+  <script src="../../webcomponentsjs-v1/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
   <link rel="import" id="test-fixture-import" href="../test-fixture.html">
@@ -21,17 +27,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
   <script>
     (function() {
-      var proto = Object.create(HTMLElement.prototype);
+      function XCustom() {
+        if (window.Reflect) {
+          return Reflect.construct(HTMLElement, [], XCustom)
+        }
+        return HTMLElement.call(this) || this;
+      }
 
-      proto.onDetached = function() {};
-
-      proto.detachedCallback = function() {
+      XCustom.constructor = XCustom;
+      XCustom.prototype = Object.create(HTMLElement.prototype);
+      XCustom.prototype.onDetached = function() {};
+      XCustom.prototype.disconnectedCallback = function() {
         this.onDetached();
       };
 
-      document.registerElement('x-custom', {
-        prototype: proto
-      });
+      customElements.define('x-custom', XCustom);
     })();
   </script>
   <test-fixture id="TrivialFixture">
@@ -169,7 +179,7 @@ describe('<test-fixture>', function () {
 
     describe('for a dom with a single root element', function () {
       it('returns a reference to the root element', function () {
-        expect(el).to.be.instanceOf(HTMLElement);
+        expect(el).to.be.instanceOf(_HTMLElement);
       });
     });
 
@@ -188,8 +198,8 @@ describe('<test-fixture>', function () {
 
       it('returns an array of root elements', function () {
         expect(els).to.be.instanceOf(Array);
-        expect(els[0]).to.be.instanceOf(HTMLElement);
-        expect(els[1]).to.be.instanceOf(HTMLElement);
+        expect(els[0]).to.be.instanceOf(_HTMLElement);
+        expect(els[1]).to.be.instanceOf(_HTMLElement);
       });
     });
 
@@ -207,10 +217,10 @@ describe('<test-fixture>', function () {
 
       it('returns an array with elements grouped by template', function () {
         expect(groups).to.be.instanceOf(Array);
-        expect(groups[0]).to.be.instanceOf(HTMLElement);
+        expect(groups[0]).to.be.instanceOf(_HTMLElement);
         expect(groups[1]).to.be.instanceOf(Array);
-        expect(groups[1][0]).to.be.instanceOf(HTMLElement);
-        expect(groups[1][1]).to.be.instanceOf(HTMLElement);
+        expect(groups[1][0]).to.be.instanceOf(_HTMLElement);
+        expect(groups[1][1]).to.be.instanceOf(_HTMLElement);
       });
     });
 
@@ -224,7 +234,7 @@ describe('<test-fixture>', function () {
       });
 
       it('returns a single element if the template has a single child', function() {
-        expect(el).to.be.instanceOf(HTMLElement);
+        expect(el).to.be.instanceOf(_HTMLElement);
       });
 
       it('returns multiple elements if the template has multiple children', function() {

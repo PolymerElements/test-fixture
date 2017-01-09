@@ -15,14 +15,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-
   </head>
   <body>
     <script>
       WCT.loadSuites([
-        'test-fixture.html',
-        'handle-multiple-registrations.html'
+        'test-fixture.html', // shady
+        'test-fixture.html?dom=shadow', // shadow
+        'test-fixture-v1.html?wc-shadydom=true&wc-ce=true', // shady
+        'test-fixture-v1.html', // shadow
+        'handle-multiple-registrations.html',
       ]);
     </script>
   </body>
