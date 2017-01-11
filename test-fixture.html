@@ -328,7 +328,7 @@ large quantity of ever-growing set-up and tear-down boilerplate.
       }
       TestFixture.prototype = TestFixturePrototype;
       TestFixture.prototype.constructor = TestFixture;
-      customElements.define('test-fixture', TestFixture);
+      window.customElements.define('test-fixture', TestFixture);
     } else {
       document.registerElement('test-fixture', {
         prototype: TestFixturePrototype
