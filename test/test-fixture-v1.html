@@ -34,8 +34,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return HTMLElement.call(this) || this;
       }
 
-      XCustom.constructor = XCustom;
       XCustom.prototype = Object.create(HTMLElement.prototype);
+      Object.defineProperty(XCustom.prototype, 'constructor', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: XCustom,
+      });
       XCustom.prototype.onDetached = function() {};
       XCustom.prototype.disconnectedCallback = function() {
         this.onDetached();

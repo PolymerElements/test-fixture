@@ -244,7 +244,7 @@ large quantity of ever-growing set-up and tear-down boilerplate.
         window.CustomElements.takeRecords();
       }
       // 2. ShadyDOM polyfill.
-      if (window.ShadyDOM) {
+      if (window.ShadyDOM && window.ShadyDOM.flush) {
         window.ShadyDOM.flush();
       }
     },
