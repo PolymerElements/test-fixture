@@ -9,7 +9,7 @@
     "testing"
   ],
   "devDependencies": {
-    "web-component-tester": "^4.0.0",
+    "web-component-tester": "^5.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "webcomponentsjs-v1": "webcomponents/webcomponentsjs#v1"
   },
