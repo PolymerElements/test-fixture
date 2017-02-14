@@ -9,9 +9,15 @@
     "testing"
   ],
   "devDependencies": {
-    "web-component-tester": "^5.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "webcomponentsjs-v1": "webcomponents/webcomponentsjs#v1"
+    "web-component-tester": "6.0.0-prerelease.5",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
+  },
+  "variants": {
+    "1.x": {
+      "devDependencies": {
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+      }
+    }
   },
   "main": "test-fixture.html",
   "ignore": []
