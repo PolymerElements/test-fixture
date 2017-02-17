@@ -35,10 +35,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       value: XCustom,
     });
     XCustom.prototype.onDetached = function() {};
-    XCustom.prototype.detachedCallback =
-    XCustom.prototype.disconnectedCallback = function() {
-      this.onDetached();
-    };
+    XCustom.prototype.disconnectedCallback =
+        XCustom.prototype.detachedCallback = function() {
+          this.onDetached();
+        };
 
     if (window.customElements) {
       customElements.define('x-custom', XCustom);
