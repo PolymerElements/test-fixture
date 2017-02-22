@@ -13,6 +13,12 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0 || v1"
   },
   "variants": {
+    "2.x": {
+      "devDependencies": {
+        "web-component-tester": "6.0.0-prerelease.5",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
+      }
+    },
     "1.x": {
       "devDependencies": {
         "web-component-tester": "^4.0.0",
