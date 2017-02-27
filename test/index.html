@@ -19,10 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <body>
     <script>
       WCT.loadSuites([
-        'test-fixture.html', // shady
-        'test-fixture.html?dom=shadow', // shadow
-        'test-fixture-v1.html?wc-shadydom=true&wc-ce=true', // shady
-        'test-fixture-v1.html', // shadow
+        'test-fixture.html?wc-shadydom=true&wc-ce=true', // v1 force polyfill flags
+        'test-fixture.html?dom=shadow', // v0 force native flag
         'handle-multiple-registrations.html',
       ]);
     </script>

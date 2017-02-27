@@ -244,7 +244,7 @@ large quantity of ever-growing set-up and tear-down boilerplate.
         window.CustomElements.takeRecords();
       }
       // 2. ShadyDOM polyfill.
-      if (window.ShadyDOM) {
+      if (window.ShadyDOM && window.ShadyDOM.flush) {
         window.ShadyDOM.flush();
       }
     },
@@ -327,7 +327,13 @@ large quantity of ever-growing set-up and tear-down boilerplate.
             : HTMLElement.call(this)) || this;
       }
       TestFixture.prototype = TestFixturePrototype;
-      TestFixture.prototype.constructor = TestFixture;
+      // `constructor` is not writable on Safari 9, but is configurable.
+      Object.defineProperty(TestFixture.prototype, 'constructor', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: TestFixture,
+      });
       window.customElements.define('test-fixture', TestFixture);
     } else {
       document.registerElement('test-fixture', {
