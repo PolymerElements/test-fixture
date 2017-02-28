@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/polymerelements/test-fixture/issues"
   },
-  "homepage": "https://github.com/polymerelements/test-fixture#readme"
+  "homepage": "https://github.com/polymerelements/test-fixture#readme",
+  "dependencies": {
+    "web-component-tester": "^5.0.0"
+  }
 }
