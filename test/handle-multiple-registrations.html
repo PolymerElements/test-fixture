@@ -14,17 +14,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>Multiple Registrations</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../test-fixture.html">
-  <link rel="import" href="test-fixture-symlink.html">
+  <script type="module" src="../test-fixture.js"></script>
+  <script type="module" src="./test-fixture-symlink.js"></script>
 </head>
 <body>
-  <script>
-    test('multiple registrations', function() {
-      var imports = document.querySelectorAll('link[rel="import"]');
-      for (var i = 0; i < imports.length; i++) {
-        assert.ok(imports[i].import, 'import loaded');
-      }
-    });
-  </script>
+  <script type="module">
+import '../test-fixture.js';
+import './test-fixture-symlink.js';
+test('multiple registrations', function() {
+  var imports = document.querySelectorAll('link[rel="import"]');
+  for (var i = 0; i < imports.length; i++) {
+    assert.ok(imports[i].import, 'import loaded');
+  }
+});
+</script>
 </body>
 </html>
