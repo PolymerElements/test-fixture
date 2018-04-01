@@ -3,6 +3,10 @@ sudo: 'false'
 dist: trusty
 before_script:
   - polymer lint
+  - >-
+    npm run update-types && git diff --exit-code || (echo -e
+    '\n\033[31mERROR:\033[0m Typings are stale. Please run "npm run
+    update-types".' && false)
 node_js: stable
 addons:
   firefox: latest
