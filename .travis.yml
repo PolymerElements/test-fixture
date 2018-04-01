@@ -1,8 +1,9 @@
 language: node_js
-sudo: 'false'
+sudo: required
 dist: trusty
 before_script:
-  - polymer lint
+  - npm install -g polymer-cli
+  - polymer install --variants
   - >-
     npm run update-types && git diff --exit-code || (echo -e
     '\n\033[31mERROR:\033[0m Typings are stale. Please run "npm run
@@ -10,9 +11,13 @@ before_script:
 node_js: stable
 addons:
   firefox: latest
-  chrome: stable
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 script:
-  - polymer test
+  - xvfb-run polymer test
   - |-
     >-
     if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default';
@@ -23,9 +28,6 @@ env:
         ahgtHFWqjsRiKiGtnkthNYWM4tz+IcQoA8/kFk+aYXGbljeGHdtdDkaUUsedlTyMdfupCG+Wn0PssEWb6qGsUo3BP9LyfDHL/UEO5//llOWaNTSWr5ztDPgDvOawk6g1y8bmA/2R1Gifhhe1zcLySprzCNMVgq+NFRkKD3maiv8=
     - secure: >-
         i2DBL7MR4aHWO8fRi5m0d8kfujeO8slLe0RIV98snzHnO7wm7q9Wtxmf6rFYKawib1KPe+c4+/sCyECVLHw4r0BBZrN602Qc/8O5WxEeCAjjjMrytGYEKFGhsJRAzzw/M8ZfM2FfHuGdhzkJSqLUqgmf2Nzsmehgw5aUEBRimBo=
-install:
-  - npm install -g polymer-cli
-  - polymer install --variants
 cache:
   directories:
     - node_modules
