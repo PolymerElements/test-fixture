@@ -1,0 +1,7 @@
+{
+  "addReferences": {
+    "test-fixture-mocha.d.ts": [
+      "mocha-fixture.d.ts"
+    ]
+  }
+}

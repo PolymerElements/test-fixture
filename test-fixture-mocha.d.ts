@@ -8,3 +8,5 @@
  *   test-fixture-mocha.js
  */
 
+/// <reference path="mocha-fixture.d.ts" />
+
