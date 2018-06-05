@@ -19,6 +19,11 @@
   },
   "homepage": "https://github.com/polymerelements/test-fixture#readme",
   "devDependencies": {
-    "web-component-tester": "^6.0.0-prerelease.5"
+    "web-component-tester": "^6.0.0-prerelease.5",
+    "@polymer/gen-typescript-declarations": "^1.2.2",
+    "bower": "^1.8.0"
+  },
+  "scripts": {
+    "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir ."
   }
 }
