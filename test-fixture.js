@@ -1,16 +1,18 @@
 /**
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
 */
 /**
 
 The `<test-fixture>` element can simplify the exercise of consistently
-resetting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
+resetting a test suite's DOM. To use it, wrap the test suite's DOM as a
+template:
 
 ```html
 <test-fixture id="SomeElementFixture">
@@ -36,7 +38,8 @@ describe('<some-element>', function () {
 </script>
 ```
 
-Fixtured elements can be cleaned up by calling `restore` on the `<test-fixture>`:
+Fixtured elements can be cleaned up by calling `restore` on the
+`<test-fixture>`:
 
 ```javascript
   afterEach(function () {
@@ -139,42 +142,36 @@ large quantity of ever-growing set-up and tear-down boilerplate.
 
 @pseudoElement test-fixture
  */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 var TestFixturePrototype = Object.create(HTMLElement.prototype);
 var TestFixtureExtension = {
   _fixtureTemplates: null,
 
   _elementsFixtured: false,
 
-  get elementsFixtured () {
+  get elementsFixtured() {
     return this._elementsFixtured;
   },
 
-  get fixtureTemplates () {
+  get fixtureTemplates() {
     if (!this._fixtureTemplates) {
       // Copy fixtures to a true Array for Safari 7. This prevents their
       // `content` property from being improperly garbage collected.
-      this._fixtureTemplates = Array.prototype.slice.apply(this.querySelectorAll('template'));
+      this._fixtureTemplates =
+          Array.prototype.slice.apply(this.querySelectorAll('template'));
     }
 
     return this._fixtureTemplates;
   },
 
-  create: function (model) {
+  create: function(model) {
     var generatedDoms = [];
 
     this.restore();
 
     this.removeElements(this.fixtureTemplates);
 
-    this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
-      generatedDoms.push(
-        this.createFrom(fixtureTemplate, model)
-      );
+    this.forElements(this.fixtureTemplates, function(fixtureTemplate) {
+      generatedDoms.push(this.createFrom(fixtureTemplate, model));
     }, this);
 
     this.forcePolyfillAttachedStateSynchrony();
@@ -186,13 +183,12 @@ var TestFixtureExtension = {
     return generatedDoms;
   },
 
-  createFrom: function (fixtureTemplate, model) {
+  createFrom: function(fixtureTemplate, model) {
     var fixturedFragment;
     var fixturedElements;
     var fixturedElement;
 
-    if (!(fixtureTemplate &&
-          fixtureTemplate.tagName === 'TEMPLATE')) {
+    if (!(fixtureTemplate && fixtureTemplate.tagName === 'TEMPLATE')) {
       return;
     }
 
@@ -215,14 +211,14 @@ var TestFixtureExtension = {
     return fixturedElements;
   },
 
-  restore: function () {
+  restore: function() {
     if (!this._elementsFixtured) {
       return;
     }
 
     this.removeElements(this.children);
 
-    this.forElements(this.fixtureTemplates, function (fixtureTemplate) {
+    this.forElements(this.fixtureTemplates, function(fixtureTemplate) {
       this.appendChild(fixtureTemplate);
     }, this);
 
@@ -233,7 +229,7 @@ var TestFixtureExtension = {
     this.forcePolyfillAttachedStateSynchrony();
   },
 
-  forcePolyfillAttachedStateSynchrony: function () {
+  forcePolyfillAttachedStateSynchrony: function() {
     // Force synchrony in attachedCallback and detachedCallback where
     // implemented, in the event that we are dealing with one of these async
     // polyfills:
@@ -249,7 +245,7 @@ var TestFixtureExtension = {
     }
   },
 
-  collectElementChildren: function (parent) {
+  collectElementChildren: function(parent) {
     // Note: Safari 7.1 does not support `firstElementChild` or
     // `nextElementSibling`, so we do things the old-fashioned way:
     var elements = [];
@@ -266,18 +262,17 @@ var TestFixtureExtension = {
     return elements;
   },
 
-  removeElements: function (elements) {
-    this.forElements(elements, function (element) {
+  removeElements: function(elements) {
+    this.forElements(elements, function(element) {
       this.removeChild(element);
     }, this);
   },
 
-  forElements: function (elements, iterator, context) {
-    Array.prototype.slice.call(elements)
-      .forEach(iterator, context);
+  forElements: function(elements, iterator, context) {
+    Array.prototype.slice.call(elements).forEach(iterator, context);
   },
 
-  stamp: function (fixtureTemplate, model) {
+  stamp: function(fixtureTemplate, model) {
     var stamped;
     // Check if we are dealing with a "stampable" `<template>`. This is a
     // vaguely defined special case of a `<template>` that is a custom
@@ -289,11 +284,13 @@ var TestFixtureExtension = {
       // want that to be returned.
       stamped = stamped.root || stamped;
 
-    // Otherwise, we fall back to standard HTML templates, which do not have
-    // any sort of binding support.
+      // Otherwise, we fall back to standard HTML templates, which do not have
+      // any sort of binding support.
     } else {
       if (model) {
-        console.warn(this, 'was given a model to stamp, but the template is not of a bindable type');
+        console.warn(
+            this,
+            'was given a model to stamp, but the template is not of a bindable type');
       }
 
       stamped = document.importNode(fixtureTemplate.content, true);
@@ -310,21 +307,20 @@ var TestFixtureExtension = {
   }
 };
 
-Object.getOwnPropertyNames(TestFixtureExtension)
-  .forEach(function (property) {
-    Object.defineProperty(
+Object.getOwnPropertyNames(TestFixtureExtension).forEach(function(property) {
+  Object.defineProperty(
       TestFixturePrototype,
       property,
-      Object.getOwnPropertyDescriptor(TestFixtureExtension, property)
-    );
-  });
+      Object.getOwnPropertyDescriptor(TestFixtureExtension, property));
+});
 
 try {
   if (window.customElements) {
     function TestFixture() {
       return ((window.Reflect && Reflect.construct) ?
-          Reflect.construct(HTMLElement, [], TestFixture)
-          : HTMLElement.call(this)) || this;
+                  Reflect.construct(HTMLElement, [], TestFixture) :
+                  HTMLElement.call(this)) ||
+          this;
     }
     TestFixture.prototype = TestFixturePrototype;
     // `constructor` is not writable on Safari 9, but is configurable.
@@ -336,13 +332,12 @@ try {
     });
     window.customElements.define('test-fixture', TestFixture);
   } else {
-    document.registerElement('test-fixture', {
-      prototype: TestFixturePrototype
-    });
+    document.registerElement('test-fixture', {prototype: TestFixturePrototype});
   }
 } catch (e) {
   if (window.WCT) {
-    console.warn('if you are using WCT, you do not need to manually import test-fixture.html');
+    console.warn(
+        'if you are using WCT, you do not need to manually import test-fixture.html');
   } else {
     console.warn('test-fixture has already been registered!');
   }
