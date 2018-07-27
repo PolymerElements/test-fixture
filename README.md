@@ -1,18 +1,6 @@
-
-<!---
-
-This README is automatically generated from the comments in these files:
-test-fixture.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
-
+[![Published on NPM](https://img.shields.io/npm/v/@polymer/test-fixture.svg)](https://www.npmjs.com/package/@polymer/test-fixture)
 [![Build status](https://travis-ci.org/PolymerElements/test-fixture.svg?branch=master)](https://travis-ci.org/PolymerElements/test-fixture)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://webcomponents.org/element/@polymer/test-fixture)
 
 
 ##&lt;test-fixture&gt;
@@ -33,14 +21,14 @@ template:
 
 ```html
 <script>
-describe('<some-element>', function () {
-  var someElement;
+  describe('<some-element>', function () {
+    var someElement;
 
-  beforeEach(function () {
-    document.getElementById('SomeElementFixture').create();
-    someElement = document.getElementById('SomeElementForTesting');
+    beforeEach(function () {
+      document.getElementById('SomeElementFixture').create();
+      someElement = document.getElementById('SomeElementForTesting');
+    });
   });
-});
 </script>
 ```
 
@@ -64,13 +52,13 @@ after Mocha in the `<head>` of your document and then fixture elements like so:
 
 ```html
 <script>
-describe('<some-element>', function () {
-  var someElement;
+  describe('<some-element>', function () {
+    var someElement;
 
-  beforeEach(function () {
-    someElement = fixture('SomeElementFixture');
+    beforeEach(function () {
+      someElement = fixture('SomeElementFixture');
+    });
   });
-});
 </script>
 ```
 
@@ -83,13 +71,15 @@ Data-binding systems are also supported, as long as your (custom) template
 elements define a `stamp(model)` method that returns a document fragment. This
 allows you to stamp out templates w/ custom models for your fixtures.
 
-For example, using Polymer 0.8's `dom-template`:
+For example, using Polymer 2-3's `dom-bind`:
 
 ```html
 <test-fixture id="bound">
-  <template is="dom-template">
-    <span>{{greeting}}</span>
-  </template>
+  <dom-bind>
+    <template>
+      <span>{{greeting}}</span>
+    </template>
+  </dom-bind>
 </test-fixture>
 ```
 
@@ -109,28 +99,27 @@ Consider the following `web-component-tester` test suite:
 <html>
 <head>
   <title>some-element test suite</title>
-
-  <link rel="import" href="../some-element.html">
 </head>
 <body>
   <some-element id="SomeElementForTesting"></some-element>
-  <script>
-describe('<some-element>', function () {
-  var someElement;
+  <script type="module">
+    import '../some-element.js';
+    describe('<some-element>', function () {
+      var someElement;
 
-  beforeEach(function () {
-    someElement = document.getElementById('SomeElementForTesting');
-  });
+      beforeEach(function () {
+        someElement = document.getElementById('SomeElementForTesting');
+      });
 
-  it('can receive property `foo`', function () {
-    someElement.foo = 'bar';
-    expect(someElement.foo).to.be.equal('bar');
-  });
+      it('can receive property `foo`', function () {
+        someElement.foo = 'bar';
+        expect(someElement.foo).to.be.equal('bar');
+      });
 
-  it('has a default `foo` value of `undefined`', function () {
-    expect(someElement.foo).to.be.equal(undefined);
-  });
-});
+      it('has a default `foo` value of `undefined`', function () {
+        expect(someElement.foo).to.be.equal(undefined);
+      });
+    });
   </script>
 </body>
 </html>
