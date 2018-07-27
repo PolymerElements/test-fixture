@@ -8,7 +8,7 @@
 The `<test-fixture>` element can simplify the exercise of consistently
 resetting a test suite's DOM.
 
-See: [Documentation](https://www.webcomponents.org/element/@polymer/paper-input).
+See: [Documentation](https://www.webcomponents.org/element/@polymer/test-fixture).
 
 To use it, wrap the test suite's DOM as a template:
 
@@ -75,7 +75,7 @@ Data-binding systems are also supported, as long as your (custom) template
 elements define a `stamp(model)` method that returns a document fragment. This
 allows you to stamp out templates w/ custom models for your fixtures.
 
-For example, using Polymer 2-3's `dom-bind`:
+For example, using Polymer's `dom-bind`:
 
 ```html
 <test-fixture id="bound">
