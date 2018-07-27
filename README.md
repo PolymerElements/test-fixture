@@ -6,7 +6,11 @@
 ##&lt;test-fixture&gt;
 
 The `<test-fixture>` element can simplify the exercise of consistently
-resetting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
+resetting a test suite's DOM.
+
+See: [Documentation](https://www.webcomponents.org/element/@polymer/paper-input).
+
+To use it, wrap the test suite's DOM as a template:
 
 ```html
 <test-fixture id="SomeElementFixture">
