@@ -95,16 +95,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       throw new Error('No custom elements API was found.');
     }
 
-    describe('test-fixture import', function() {
-      it('loads from test-fixture import', function() {
-        var importNode = document.getElementById('test-fixture-import');
-        if (!importNode) {
-          // this element is a module
-          this.skip();
-        }
-        expect(importNode.import).to.not.be.null;
-      });
-    });
     describe('<test-fixture>', function() {
       var trivialFixture;
       var complexDomFixture;
