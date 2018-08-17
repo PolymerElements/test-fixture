@@ -104,12 +104,12 @@ Consider the following `web-component-tester` test suite:
 <html>
 <head>
   <title>some-element test suite</title>
-
-  <link rel="import" href="../some-element.html">
 </head>
 <body>
   <some-element id="SomeElementForTesting"></some-element>
-  <script>
+  <script type="module">
+import '../some-element.js';
+
 describe('<some-element>', function () {
   var someElement;
 
