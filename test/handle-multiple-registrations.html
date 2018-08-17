@@ -19,11 +19,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="module">
     import '../test-fixture.js';
     import './test-fixture-symlink.js';
+    window.IMPORTS_DID_COMPLETE = true;
+  </script>
+  <!-- Load in a new script tag, in case the module graph in the above tag
+  fails. -->
+  <script type="module">
     test('multiple registrations', function() {
-      var imports = document.querySelectorAll('link[rel="import"]');
-      for (var i = 0; i < imports.length; i++) {
-        assert.ok(imports[i].import, 'import loaded');
-      }
+      assert.ok(window.IMPORTS_DID_COMPLETE, 'Redundant imports do not throw.');
+      assert.ok(customElements.get('test-fixture'), '<test-fixture> was registered.');
     });
   </script>
 </body>
