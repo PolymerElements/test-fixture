@@ -26,7 +26,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="module">
     test('multiple registrations', function() {
       assert.ok(window.IMPORTS_DID_COMPLETE, 'Redundant imports do not throw.');
-      assert.ok(customElements.get('test-fixture'), '<test-fixture> was registered.');
+      assert.ok(
+          customElements.get('test-fixture'), '<test-fixture> was registered.');
     });
   </script>
 </body>
