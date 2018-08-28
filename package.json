@@ -23,7 +23,7 @@
     "wct-browser-legacy": "^1.0.1",
     "web-component-tester": "^6.0.0-prerelease.5",
     "webmat": "^0.2.2",
-    "@polymer/gen-typescript-declarations": "^1.5.0"
+    "@polymer/gen-typescript-declarations": "^1.5.1"
   },
   "scripts": {
     "format": "webmat",
