@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/polymerelements/test-fixture#readme",
   "name": "@polymer/test-fixture",
-  "version": "4.0.0",
+  "version": "4.0.1-pre.0",
   "main": "test-fixture.js",
   "author": "The Polymer Authors",
   "license": "BSD-3-Clause",
@@ -28,7 +28,7 @@
   "scripts": {
     "format": "webmat",
     "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
-    "prepack": "npm run generate-types"
+    "prepare": "npm run generate-types"
   },
   "dependencies": {}
 }
